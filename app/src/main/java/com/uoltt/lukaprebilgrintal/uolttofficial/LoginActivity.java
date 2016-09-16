@@ -18,7 +18,7 @@ public class LoginActivity extends AppCompatActivity {
         new CheckTokenValidity().execute(token);
         try{
             synchronized (lock){
-                lock.wait(500);
+                lock.wait(5000);
             }
 
             if(UserData.tokenValidity){
