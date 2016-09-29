@@ -1,6 +1,7 @@
 package com.uoltt.lukaprebilgrintal.uolttofficial;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,11 @@ import android.widget.EditText;
 
 public class LoginActivity extends AppCompatActivity {
 
+    public void switchActivity(){
+        Intent intent = new Intent(this, ImageCanvas.class);
+        startActivity(intent);
+    }
+
     public void loginButton(View view){
         Object lock = new Object();
         EditText tokenField = (EditText) findViewById(R.id.tokenField);
@@ -18,21 +24,26 @@ public class LoginActivity extends AppCompatActivity {
         new CheckTokenValidity().execute(token);
         try{
             synchronized (lock){
-                lock.wait(5000);
+                lock.wait(500);
             }
 
             if(UserData.tokenValidity){
-                //switchActivity(imageActivity);
+
                 SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString("Username", UserData.username);
                 editor.putString("Squadron", UserData.squadronName);
                 editor.putString("Token",    UserData.token);
                 editor.apply();
+                switchActivity();
 
+
+                /*
+                deprecated this with new activity ImageCanvas
                 Snackbar snackbar = Snackbar.make(findViewById(R.id.login_layout),
                         UserData.username + "<-Username | Squad-> " + UserData.squadronName, Snackbar.LENGTH_LONG);
                 snackbar.show();
+                */
 
             } else {
 
