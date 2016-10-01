@@ -25,6 +25,12 @@ public class CheckTokenValidity extends AsyncTask <String, Void, Boolean> {
                 UserData.username = json.getString("username");
                 if (json.get("squad") != null) {
                     UserData.squadronName = json.getString("squad");
+                    switch(UserData.squadronName){
+                        case "Odins Wrath": UserData.squadronID = 1; break;
+                        case "Wolfs Pack":  UserData.squadronID = 2; break;
+                        //case "Odins Wrath": UserData.squadronID = 3; break;
+                        //TODO add other squadrons when they get added to the API
+                    }
                 } else {
                     UserData.squadronName = null;
                 }

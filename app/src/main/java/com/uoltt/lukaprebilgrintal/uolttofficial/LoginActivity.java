@@ -63,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_main);
-        /*
+        /* TODO
         if no username/squadron in shared preferences
             show activity
         else
