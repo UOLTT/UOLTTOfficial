@@ -23,10 +23,31 @@
         android:layout_marginTop="32dp"/>
 
     <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:id="@+id/formationImage"
+        android:layout_marginTop="32dp"
+        android:layout_below="@+id/topText"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/formationImage"
-        android:layout_below="@+id/topText"
-        android:layout_alignStart="@+id/topText"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Formation Name"
+        android:textColor="@color/textLight"
+        android:id="@+id/formationName"
+        android:layout_below="@+id/formationImage"
+        android:layout_alignParentStart="true"
         android:layout_marginTop="32dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Formation Description"
+        android:textColor="@color/textLight"
+        android:id="@+id/formationDesc"
+        android:layout_below="@+id/formationName"
+        android:layout_alignParentStart="true"/>
 </RelativeLayout>

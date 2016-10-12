@@ -13,7 +13,11 @@ import android.widget.EditText;
 public class LoginActivity extends AppCompatActivity {
 
     public void switchActivity(){
-        Intent intent = new Intent(this, ImageCanvas.class);
+        //start background service
+        Intent mServiceIntent = new Intent(this, BackgroundOps.class);
+        this.startService(mServiceIntent);
+
+        Intent intent = new Intent(LoginActivity.this, ImageCanvas.class);
         startActivity(intent);
     }
 
@@ -41,7 +45,8 @@ public class LoginActivity extends AppCompatActivity {
                 /*
                 deprecated this with new activity ImageCanvas
                 Snackbar snackbar = Snackbar.make(findViewById(R.id.login_layout),
-                        UserData.username + "<-Username | Squad-> " + UserData.squadronName, Snackbar.LENGTH_LONG);
+                        UserData.username + "<-Username | Squad-> " + UserData.squadronName,
+                        Snackbar.LENGTH_LONG);
                 snackbar.show();
                 */
 

@@ -20,5 +20,12 @@ public class UserData {
     static String formDesc;
     static int[]  bounds = {0, 0}; //min and max number of members
 
+    //Errors
+    static boolean jsonErr = false;
+    static boolean linkErr = false;
+
+    //CONSTANTS
+    static final int POLLING_RATE = 1000;
+
 
 }
