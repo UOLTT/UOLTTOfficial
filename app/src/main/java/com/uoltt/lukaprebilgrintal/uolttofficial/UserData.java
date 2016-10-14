@@ -25,7 +25,7 @@ public class UserData {
     static boolean linkErr = false;
 
     //CONSTANTS
-    static final int POLLING_RATE = 1000;
+    static final int POLLING_RATE = 5000;
 
 
 }

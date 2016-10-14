@@ -26,32 +26,35 @@ public class ImageCanvas extends AppCompatActivity {
         TextView topText = (TextView) findViewById(R.id.topText);
         topText.setText(String.format("Current Formation for %s", UserData.username));
         final ImageView formimage = (ImageView) findViewById(R.id.formationImage);
+        final TextView formationName = (TextView) findViewById(R.id.formationName);
+        final TextView formationDesc = (TextView) findViewById(R.id.formationDesc);
 
-        final Runnable imgUpdateTask = new Runnable() {
+        final Runnable viewsUpdateTask = new Runnable() {
             @Override
             public void run() {
                 Handler handler = new Handler();
-                System.err.println("runnableloop");
-                System.err.println(UserData.formationID);
 
                 Intent mServiceIntent = new Intent(ImageCanvas.this, BackgroundOps.class);
                 startService(mServiceIntent);
 
-                    switch (UserData.formationID) {
-                        case 1:
-                            formimage.setImageResource(R.drawable.f1); break;
-                        case 2:
-                            formimage.setImageResource(R.drawable.f2); break;
-                        case 3:
-                            formimage.setImageResource(R.drawable.f3); break;
-                        case 4:
-                            formimage.setImageResource(R.drawable.f4); break;
-                        default:
-                            defaultCase(formimage);
-                    }
-                    handler.postDelayed(this, UserData.POLLING_RATE);
+                switch (UserData.formationID) {
+                    case 1:
+                        formimage.setImageResource(R.drawable.f1); break;
+                    case 2:
+                        formimage.setImageResource(R.drawable.f2); break;
+                    case 3:
+                        formimage.setImageResource(R.drawable.f3); break;
+                    case 4:
+                        formimage.setImageResource(R.drawable.f4); break;
+                    default:
+                        defaultCase(formimage);
+                }
+
+                formationName.setText(UserData.formationName);
+                formationDesc.setText(UserData.formDesc);
+                handler.postDelayed(this, UserData.POLLING_RATE);
             }
         };
-        formimage.post(imgUpdateTask);
+        formimage.post(viewsUpdateTask);
     }
 }
