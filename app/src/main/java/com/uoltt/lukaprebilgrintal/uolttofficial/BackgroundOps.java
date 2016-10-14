@@ -32,8 +32,10 @@ public class BackgroundOps extends IntentService {
     protected void onHandleIntent(Intent intent) {
         try{
             String jsonstring = new Scanner(
-                    new URL(String.format(Locale.UK, "http://developers.uoltt.org/api/v3/squads/%d", 1)) //TODO make dependent on squad
-                            .openStream(), "UTF-8").useDelimiter("\\A").next();
+                    new URL(String.format(
+                            Locale.UK,
+                            "http://developers.uoltt.org/api/v3/squads/%d", UserData.squadronID)
+                    ).openStream(), "UTF-8").useDelimiter("\\A").next();
 
             JSONObject json = new JSONObject(jsonstring);
 
