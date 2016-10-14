@@ -30,34 +30,32 @@ public class BackgroundOps extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        try{
+            String jsonstring = new Scanner(
+                    new URL(String.format(Locale.UK, "http://developers.uoltt.org/api/v3/squads/%d", 1)) //TODO make dependent on squad
+                            .openStream(), "UTF-8").useDelimiter("\\A").next();
 
-        Date currenttime = new Date();
-        while(true){
-            if (UserData.jsonErr | UserData.linkErr){
-                break;
-            } else if (currenttime.getTime() % (UserData.POLLING_RATE/2) == 0) {
-                try{
+            JSONObject json = new JSONObject(jsonstring);
 
-                    String jsonstring = new Scanner(
-                            new URL(String.format(Locale.UK, "http://developers.uoltt.org/api/v3/squads/%d", 1)) //TODO make dependent on squad
-                                    .openStream(), "UTF-8").useDelimiter("\\A").next();
+            UserData.formationID = json.getInt("formation_id");
 
-                    JSONObject json = new JSONObject(jsonstring);
-                    UserData.formationID = json.getInt("formation_id");
-                    JSONObject formation = json.getJSONObject("formation");
-                    UserData.formationName = formation.getString("name");
-                    UserData.formDesc = formation.getString("description");
-                    UserData.bounds[0] = formation.getInt("minimum_members");
-                    UserData.bounds[1] = formation.getInt("maximum_members");
-                } catch (Exception e) {
-                    System.err.println(e.getMessage());
-                    if (e instanceof JSONException){
-                        UserData.jsonErr = true;
-                    } else if (e instanceof MalformedURLException){
-                        UserData.linkErr = true;
-                    }
-                }
+            JSONObject formation = json.getJSONObject("formation");
+
+            UserData.formationName = formation.getString("name");
+
+            UserData.formDesc = formation.getString("description");
+
+            UserData.bounds[0] = formation.getInt("minimum_members");
+            UserData.bounds[1] = formation.getInt("maximum_members");
+
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            if (e instanceof JSONException){
+                UserData.jsonErr = true;
+            } else if (e instanceof MalformedURLException){
+                UserData.linkErr = true;
             }
         }
     }
 }
+
