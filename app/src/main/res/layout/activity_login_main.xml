@@ -4,43 +4,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:id="@+id/login_layout"
-    android:background="@color/backgroundDark"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.uoltt.lukaprebilgrintal.uolttofficial.LoginActivity">
+    android:background="@color/backgroundDark" >
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:id="@+id/login_layout"
+            android:background="@color/backgroundDark"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            tools:context="com.uoltt.lukaprebilgrintal.uolttofficial.LoginActivity">
 
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tokenField"
-        android:hint="@string/prompt_token"
-        android:textColorHint="@color/textLightHint"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"/>
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tokenField"
+                android:hint="@string/prompt_token"
+                android:textColorHint="@color/textLightHint"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"/>
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="400dp"
-        android:id="@+id/logoIMG"
-        android:src="@drawable/logo"
-        android:layout_below="@id/tokenField"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="24dp"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="400dp"
+                android:id="@+id/logoIMG"
+                android:src="@drawable/logo"
+                android:layout_below="@id/tokenField"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="24dp"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="login"
-        android:id="@+id/loginButton"
-        android:layout_below="@id/logoIMG"
-        android:layout_centerHorizontal="true"
-        android:width="100dp"
-        android:background="@color/colorAccent"
-        android:textColor="@color/textLight"
-        android:onClick="loginButton"
-        android:layout_marginTop="24dp"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="login"
+                android:id="@+id/loginButton"
+                android:layout_below="@id/logoIMG"
+                android:layout_centerHorizontal="true"
+                android:width="100dp"
+                android:background="@color/colorAccent"
+                android:textColor="@color/textLight"
+                android:onClick="loginButton"
+                android:layout_marginTop="24dp"/>
+
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>
