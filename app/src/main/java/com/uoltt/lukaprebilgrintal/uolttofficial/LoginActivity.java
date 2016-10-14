@@ -40,18 +40,7 @@ public class LoginActivity extends AppCompatActivity {
                 editor.putString("Token",    UserData.token);
                 editor.apply();
                 switchActivity();
-
-
-                /*
-                deprecated this with new activity ImageCanvas
-                Snackbar snackbar = Snackbar.make(findViewById(R.id.login_layout),
-                        UserData.username + "<-Username | Squad-> " + UserData.squadronName,
-                        Snackbar.LENGTH_LONG);
-                snackbar.show();
-                */
-
             } else {
-
                 String invalidToken = "No user with this token exists.";
                 Snackbar snackbar = Snackbar.make(findViewById(R.id.login_layout),
                                                   invalidToken, Snackbar.LENGTH_LONG);
@@ -68,11 +57,14 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_main);
-        /* TODO
-        if no username/squadron in shared preferences
-            show activity
-        else
-            show imageview activity
-         */
+
+        SharedPreferences prefs = this.getPreferences(Context.MODE_PRIVATE);
+
+        if (prefs.contains("Token") && prefs.contains("Squadron") && prefs.contains("Token")){
+            UserData.username = prefs.getString("Username", "USRNAMEError");
+            UserData.squadronName = prefs.getString("Squadron", "SQDRNError");
+            UserData.token = prefs.getString("Token", "TKNError");
+            switchActivity();
+        }
     }
 }
