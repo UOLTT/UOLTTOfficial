@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 public class ImageCanvas extends AppCompatActivity {
 
+
     private void defaultCase(ImageView formimage){
         if(UserData.jsonErr){
             formimage.setImageResource(R.drawable.badjson);
@@ -96,11 +97,11 @@ public class ImageCanvas extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
     public void logout(){
-        SharedPreferences prefs = this.getPreferences(Context.MODE_PRIVATE);
-        prefs.edit().clear().apply();
+        SharedPreferences prefs = this.getSharedPreferences(getString(R.string.shared_preferences_file), Context.MODE_PRIVATE);
+        prefs.edit().putBoolean("LoggedIn", false).commit();
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
+        finish();
     }
 }

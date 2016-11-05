@@ -33,11 +33,13 @@ public class LoginActivity extends AppCompatActivity {
 
             if(UserData.tokenValidity){
 
-                SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.shared_preferences_file), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString("Username", UserData.username);
                 editor.putString("Squadron", UserData.squadronName);
+                editor.putInt("SquadronID",  UserData.squadronID);
                 editor.putString("Token",    UserData.token);
+                editor.putBoolean("LoggedIn", true);
                 editor.apply();
                 switchActivity();
             } else {
@@ -58,11 +60,12 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_main);
 
-        SharedPreferences prefs = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences prefs = this.getSharedPreferences(getString(R.string.shared_preferences_file), Context.MODE_PRIVATE);
 
-        if (prefs.contains("Token") && prefs.contains("Squadron") && prefs.contains("Token")){
+        if (prefs.getBoolean("LoggedIn", /*defaults if not found to*/false)){
             UserData.username = prefs.getString("Username", "USRNAMEError");
             UserData.squadronName = prefs.getString("Squadron", "SQDRNError");
+            UserData.squadronID = prefs.getInt("SquadronID", -1);
             UserData.token = prefs.getString("Token", "TKNError");
             switchActivity();
         }

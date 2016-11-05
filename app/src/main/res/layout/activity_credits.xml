@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundDark" >
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/textLight"
+                android:text="@string/luka"
+                android:id="@+id/settingsplaceholder"
+                android:layout_marginTop="32dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/textLight"
+                android:text="@string/juda"
+                android:id="@+id/settingsplaceholder1"
+                android:layout_below="@id/settingsplaceholder"
+                android:layout_marginTop="32dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/textLight"
+                android:text="@string/rucca"
+                android:id="@+id/settingsplaceholder2"
+                android:layout_below="@id/settingsplaceholder1"
+                android:layout_marginTop="32dp"/>
+
+        </RelativeLayout>
+
+
+    </ScrollView>
+</RelativeLayout>

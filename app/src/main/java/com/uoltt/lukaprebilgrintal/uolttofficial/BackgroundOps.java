@@ -51,6 +51,7 @@ public class BackgroundOps extends IntentService {
             UserData.bounds[1] = formation.getInt("maximum_members");
 
         } catch (Exception e) {
+            System.err.println("There was an exception in the bckops");
             System.err.println(e.getMessage());
             if (e instanceof JSONException){
                 UserData.jsonErr = true;
