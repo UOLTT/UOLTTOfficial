@@ -24,9 +24,13 @@ public class CheckTokenValidity extends AsyncTask <String, Void, Boolean> {
             } else {
                 UserData.username = json.getString("username");
                 if (json.get("squad") != null) {
-                    UserData.squadronName = json.getString("squad");
+                    JSONObject squad = json.getJSONObject("squad");
+                    UserData.squadronName = squad.getString("name");
+                    UserData.squadronID   = squad.getInt("id");
                 } else {
                     UserData.squadronName = null;
+                    UserData.squadronID = -1;
+                    System.err.println("SQID is wrong, squad was null");
                 }
                 UserData.token = token;
                 UserData.tokenValidity = true;

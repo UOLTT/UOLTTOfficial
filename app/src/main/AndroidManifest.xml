@@ -10,13 +10,34 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity">
+        <activity
+            android:name=".LoginActivity"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity android:name=".ImageCanvas">
+            <action android:name="android.intent.action.VIEW"/>
+        </activity>
+
+        <service
+            android:name=".BackgroundOps"
+            android:exported="false">
+        </service>
+
+        <activity android:name=".Settings">
+        </activity>
+
+        <activity android:name=".Credits">
+        </activity>
+
+        <activity android:name=".MenuTemplate">
+        </activity>
+
     </application>
 
 </manifest>
