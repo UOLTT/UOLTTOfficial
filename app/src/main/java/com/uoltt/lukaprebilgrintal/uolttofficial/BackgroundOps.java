@@ -53,6 +53,7 @@ public class BackgroundOps extends IntentService {
         } catch (Exception e) {
             System.err.println("There was an exception in the bckops");
             System.err.println(e.getMessage());
+            System.err.println(e.toString());
             if (e instanceof JSONException){
                 UserData.jsonErr = true;
             } else if (e instanceof MalformedURLException){

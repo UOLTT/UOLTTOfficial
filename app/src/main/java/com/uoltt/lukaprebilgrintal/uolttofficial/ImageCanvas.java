@@ -1,19 +1,14 @@
 package com.uoltt.lukaprebilgrintal.uolttofficial;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.media.Image;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class ImageCanvas extends AppCompatActivity {
+public class ImageCanvas extends MenuTemplate {
 
 
     private void defaultCase(ImageView formimage){
@@ -28,6 +23,8 @@ public class ImageCanvas extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_canvas);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
 
         TextView topText = (TextView) findViewById(R.id.topText);
         topText.setText(String.format("Current Formation for %s", UserData.username));
@@ -64,44 +61,4 @@ public class ImageCanvas extends AppCompatActivity {
         formimage.post(viewsUpdateTask);
     }
 
-
-    // Menu Stuff
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.options_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-
-        menu.getItem(1).setEnabled(false);
-        menu.getItem(2).setEnabled(false);
-        return super.onPrepareOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        switch(item.getItemId()){
-            case R.id.logout:
-                logout();
-                return true;
-            case R.id.settings:
-                //openSettingsActivity();
-                return true;
-            case R.id.credits:
-                //openCreditsActivity();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-    public void logout(){
-        SharedPreferences prefs = this.getSharedPreferences(getString(R.string.shared_preferences_file), Context.MODE_PRIVATE);
-        prefs.edit().putBoolean("LoggedIn", false).commit();
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
-        finish();
-    }
 }

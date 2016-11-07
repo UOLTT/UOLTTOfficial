@@ -4,11 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundDark" >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/backgroundDark">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:layout_below="@id/toolbar">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -21,7 +32,7 @@
                 android:textColor="@color/textLight"
                 android:text="@string/luka"
                 android:id="@+id/settingsplaceholder"
-                android:layout_marginTop="32dp"/>
+                android:layout_marginTop="16dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -30,7 +41,7 @@
                 android:text="@string/juda"
                 android:id="@+id/settingsplaceholder1"
                 android:layout_below="@id/settingsplaceholder"
-                android:layout_marginTop="32dp"/>
+                android:layout_marginTop="24dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -39,7 +50,7 @@
                 android:text="@string/rucca"
                 android:id="@+id/settingsplaceholder2"
                 android:layout_below="@id/settingsplaceholder1"
-                android:layout_marginTop="32dp"/>
+                android:layout_marginTop="24dp"/>
 
         </RelativeLayout>
 
