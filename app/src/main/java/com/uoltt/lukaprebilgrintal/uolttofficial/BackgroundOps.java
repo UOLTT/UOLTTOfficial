@@ -6,6 +6,7 @@ import android.content.Intent;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
@@ -50,14 +51,20 @@ public class BackgroundOps extends IntentService {
             UserData.bounds[0] = formation.getInt("minimum_members");
             UserData.bounds[1] = formation.getInt("maximum_members");
 
-        } catch (Exception e) {
+        } catch (JSONException e) {
             System.err.println("There was an exception in the bckops");
             System.err.println(e.getMessage());
             System.err.println(e.toString());
-            if (e instanceof JSONException){
-                UserData.jsonErr = true;
-            } else if (e instanceof MalformedURLException){
-                UserData.linkErr = true;
+            UserData.jsonErr = true;
+        } catch (MalformedURLException e) {
+            System.err.println("There was an exception in the bckops");
+            System.err.println(e.getMessage());
+            System.err.println(e.toString());
+            UserData.linkErr = true;
+        } catch (IOException e){
+            System.err.println("IOException");
+            for(StackTraceElement m : e.getStackTrace()){
+                System.err.println(m.toString());
             }
         }
     }
