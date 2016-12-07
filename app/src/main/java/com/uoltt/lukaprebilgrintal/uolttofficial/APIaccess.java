@@ -1,23 +1,23 @@
 package com.uoltt.lukaprebilgrintal.uolttofficial;
 
-import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.Locale;
+
 
 /**
  * Created by Luka on 07/11/2016.
  */
-public class APIaccess {
+
+class APIaccess {
+
+    static String buildString(int mode, int fleetID, String name, String status){
+        return String.format("%d %d %s %s", mode, fleetID, name, status);
+    } //TODO v4 compat
 
     private static void sendGet(String URL) throws Exception {
         /***
@@ -96,16 +96,93 @@ public class APIaccess {
 
     }
 
+
+
     // Fleet Management
-    public static JSONObject createNewFleet(String name, String status){
+    static JSONObject createNewFleet(String[] data){
         /***
          * Creates a new FLEET object, to fill it with members,
          * add its fleetID to a squadron.
          */
 
         try{
+
+            String name = data[0];
+            String status_id = data[1];
+            String org_id = data[2];
+            String manifesto = data[3];
+
+            String frame = "name=%s&status_id=%s&organization_id=%s&manifesto=%s";
+
+            String newFleet = sendPost(UserData.API_ROOT + "fleets",
+                              String.format(frame, name, status_id, org_id, manifesto));
+
+            return new JSONObject(newFleet);
+
+        } catch (Exception e){
+            System.err.println(e.getMessage());
+            return null;
+        }
+
+    }
+
+    static JSONObject editFleet(String[] data) {
+        /***
+         * Updates the selected fleet (fleetID), and returns the updated fleet JSON object
+         */
+        try {
+
+            String frame = "id=%s&name=%s&organization_id=%s&status_id=%s&manifesto=%s";
+
+            String name = data[0];
+            String status_id = data[1];
+            String org_id = data[2];
+            String manifesto = data[3];
+            String fleetID = data[4];
+
+
+            String params = String.format(frame, fleetID, name, org_id, status_id, manifesto);
+            String URL = String.format(Locale.UK, UserData.API_ROOT + "fleets/%d", fleetID);
+
+            String newFleet = sendPost(URL, params);
+
+            return new JSONObject(newFleet);
+
+        } catch (Exception e){
+            System.err.println(e.getMessage());
+            return null;
+        }
+    }
+
+    static JSONObject deleteFleet(int fleetID){
+        /***
+         * Deletes the specified fleet
+         */
+        try {
+            String URL = String.format(UserData.API_ROOT + "fleets/%d", fleetID);
+
+            String newFleet = sendPost(URL, "_method=delete");
+            JSONObject returnMsg = new JSONObject(newFleet);
+            return returnMsg;
+
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            return new JSONObject();
+        }
+
+    }
+
+
+    // Squadron Management
+    static JSONObject createNewSquad(String name, String status){
+        /***
+         * Creates a new SQUADRON object, to fill it with members,
+         * add its fleetID to a squadron.
+         */
+
+        try{
             String newFleet = sendPost("http://developers.uoltt.org/api/v3/fleets",
-                                        String.format("name=%s&status=%s", name, status));
+                    String.format("name=%s&status=%s", name, status));
 
             JSONObject newFleetJSON = new JSONObject(newFleet);
 
@@ -118,7 +195,7 @@ public class APIaccess {
 
     }
 
-    public static JSONObject editFleet(int fleetID, String name, String status) {
+    static JSONObject editSquad(int fleetID, String name, String status) {
         /***
          * Updates the selected fleet (fleetID), and returns the updated fleet JSON object
          */
@@ -138,7 +215,7 @@ public class APIaccess {
         }
     }
 
-    public static void deleteFleet(int fleetID){
+    static JSONObject deleteSquad(int fleetID){
         /***
          * Deletes the specified fleet
          */
@@ -146,13 +223,13 @@ public class APIaccess {
             String URL = String.format("http://developers.uoltt.org/api/v3/fleets/%d", fleetID);
 
             String newFleet = sendPost(URL, "_method=delete");
+            JSONObject returnMsg = new JSONObject(newFleet);
+            return returnMsg;
 
         } catch (Exception e) {
             System.err.println(e.getMessage());
+            return new JSONObject();
         }
 
     }
-
-    // Squadron Management
-
 }
