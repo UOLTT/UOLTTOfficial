@@ -22,7 +22,7 @@ public class AsyncAPICall extends AsyncTask <String, Void, JSONObject> {
             case 0:
                 returnJSON = APIaccess.createNewFleet(data); break;
             case 1:
-                returnJSON = APIaccess.editFleet(fleetID, name, status); break;
+                returnJSON = APIaccess.editFleet(data); break;
             case 2:
                 returnJSON = APIaccess.deleteFleet(fleetID); break;
         }

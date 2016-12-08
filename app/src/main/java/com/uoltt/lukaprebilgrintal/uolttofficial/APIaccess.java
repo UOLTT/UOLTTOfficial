@@ -132,7 +132,7 @@ class APIaccess {
          */
         try {
 
-            String frame = "id=%s&name=%s&organization_id=%s&status_id=%s&manifesto=%s";
+            String frame = "id=%s&name=%s&organization_id=%s&status_id=%s&manifesto=%s&_method=patch";
 
             String name = data[0];
             String status_id = data[1];
@@ -142,7 +142,7 @@ class APIaccess {
 
 
             String params = String.format(frame, fleetID, name, org_id, status_id, manifesto);
-            String URL = String.format(Locale.UK, UserData.API_ROOT + "fleets/%d", fleetID);
+            String URL = String.format(Locale.UK, UserData.API_ROOT + "fleets/%s", fleetID);
 
             String newFleet = sendPost(URL, params);
 
@@ -159,15 +159,15 @@ class APIaccess {
          * Deletes the specified fleet
          */
         try {
-            String URL = String.format(UserData.API_ROOT + "fleets/%d", fleetID);
+            String URL = String.format(Locale.UK, UserData.API_ROOT + "fleets/%d", fleetID);
 
             String newFleet = sendPost(URL, "_method=delete");
-            JSONObject returnMsg = new JSONObject(newFleet);
-            return returnMsg;
+
+            return new JSONObject(newFleet);
 
         } catch (Exception e) {
             System.err.println(e.getMessage());
-            return new JSONObject();
+            return null;
         }
 
     }
