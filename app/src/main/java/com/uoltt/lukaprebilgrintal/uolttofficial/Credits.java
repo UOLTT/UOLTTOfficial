@@ -2,7 +2,6 @@ package com.uoltt.lukaprebilgrintal.uolttofficial;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import org.json.JSONObject;
 
 public class Credits extends MenuTemplate {
 
