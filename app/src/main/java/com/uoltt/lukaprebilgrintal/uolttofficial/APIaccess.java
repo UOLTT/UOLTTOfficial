@@ -15,9 +15,13 @@ import java.util.Locale;
 
 class APIaccess {
 
-    static String buildString(int mode, int fleetID, String name, String status){
-        return String.format("%d %d %s %s", mode, fleetID, name, status);
-    } //TODO v4 compat
+    static String buildString(String name, int statusID, int orgID, String manifesto, int fleetID,
+                              int squadID, int mode){
+
+        return String.format(Locale.UK,
+                             "%s %d %d %s %d %d %d",
+                             name, statusID, orgID, manifesto, fleetID, squadID, mode);
+    }
 
     private static void sendGet(String URL) throws Exception {
         /***
@@ -101,7 +105,7 @@ class APIaccess {
     // Fleet Management
     static JSONObject createNewFleet(String[] data){
         /***
-         * Creates a new FLEET object, to fill it with members,
+         * Creates a new FLEET object. to fill it with members,
          * add its fleetID to a squadron.
          */
 
@@ -132,7 +136,7 @@ class APIaccess {
          */
         try {
 
-            String frame = "id=%s&name=%s&organization_id=%s&status_id=%s&manifesto=%s&_method=patch";
+            String frame = "name=%s&organization_id=%s&status_id=%s&manifesto=%s&_method=patch";
 
             String name = data[0];
             String status_id = data[1];
@@ -140,11 +144,8 @@ class APIaccess {
             String manifesto = data[3];
             String fleetID = data[4];
 
-
-            String params = String.format(frame, fleetID, name, org_id, status_id, manifesto);
-            String URL = String.format(Locale.UK, UserData.API_ROOT + "fleets/%s", fleetID);
-
-            String newFleet = sendPost(URL, params);
+            String newFleet = sendPost(String.format(Locale.UK, UserData.API_ROOT + "fleets/%s", fleetID),
+                                       String.format(frame, name, org_id, status_id, manifesto));
 
             return new JSONObject(newFleet);
 
@@ -174,19 +175,24 @@ class APIaccess {
 
 
     // Squadron Management
-    static JSONObject createNewSquad(String name, String status){
+    static JSONObject createNewSquad(String[] data){
         /***
-         * Creates a new SQUADRON object, to fill it with members,
-         * add its fleetID to a squadron.
+         * Creates a new SQUADRON object. to fill it with members,
+         * add its squadID to a member.
          */
+
+        String fleetID = data[4];
+        String statusID = data[1];
+        String name = data[0];
+
+        String frame = "fleet_id=%s&status_id=%s&name=%s";
 
         try{
-            String newFleet = sendPost("http://developers.uoltt.org/api/v3/fleets",
-                    String.format("name=%s&status=%s", name, status));
+            String newSquad = sendPost(UserData.API_ROOT + "squads",
+                                       String.format(frame, fleetID, statusID, name));
 
-            JSONObject newFleetJSON = new JSONObject(newFleet);
 
-            return newFleetJSON;
+            return new JSONObject(newSquad);
 
         } catch (Exception e){
             System.err.println(e.getMessage());
@@ -195,19 +201,23 @@ class APIaccess {
 
     }
 
-    static JSONObject editSquad(int fleetID, String name, String status) {
+    static JSONObject editSquad(String[] data) {
         /***
-         * Updates the selected fleet (fleetID), and returns the updated fleet JSON object
+         * Updates the selected squad (squadID), and returns the updated squad JSON object
          */
         try {
-            String params = String.format("name=%s&status=%s", name, status);
-            String URL = String.format("http://developers.uoltt.org/api/v3/fleets/%d", fleetID);
 
-            String newFleet = sendPost(URL, params);
+            String squadID = data[5];
+            String fleetID = data[4];
+            String statusID = data[1];
+            String name = data[0];
 
-            JSONObject newFleetJSON = new JSONObject(newFleet);
+            String frame = "fleet_id=%s&status_id=%s&name=%s&_method=patch";
 
-            return newFleetJSON;
+            String newFleet = sendPost(String.format(UserData.API_ROOT + "squads/%s", squadID),
+                                       String.format(frame, fleetID, statusID, name));
+
+            return new JSONObject(newFleet);
 
         } catch (Exception e){
             System.err.println(e.getMessage());
@@ -215,16 +225,16 @@ class APIaccess {
         }
     }
 
-    static JSONObject deleteSquad(int fleetID){
+    static JSONObject deleteSquad(int squadID){
         /***
-         * Deletes the specified fleet
+         * Deletes the specified squad
          */
         try {
-            String URL = String.format("http://developers.uoltt.org/api/v3/fleets/%d", fleetID);
+            String URL = String.format(Locale.UK, UserData.API_ROOT + "squads/%d", squadID);
 
             String newFleet = sendPost(URL, "_method=delete");
-            JSONObject returnMsg = new JSONObject(newFleet);
-            return returnMsg;
+
+            return new JSONObject(newFleet);
 
         } catch (Exception e) {
             System.err.println(e.getMessage());
@@ -232,4 +242,8 @@ class APIaccess {
         }
 
     }
+
+    //User Management TODO when juda does the docs
+
+
 }
