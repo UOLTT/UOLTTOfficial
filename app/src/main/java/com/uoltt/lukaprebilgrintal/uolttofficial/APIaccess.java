@@ -15,6 +15,7 @@ import java.util.Locale;
 
 class APIaccess {
 
+<<<<<<< HEAD
     static String[] buildString(String name, int statusID, int orgID, String manifesto, int fleetID,
                               int squadID, String email, String pwd, int userID, int mode){
 
@@ -28,6 +29,14 @@ class APIaccess {
                              name, statusID, orgID, manifesto, fleetID, squadID, email, pwd, userID, mode);
 
         return toBeSplit.split(" ");
+=======
+    static String buildString(String name, int statusID, int orgID, String manifesto, int fleetID,
+                              int squadID, int mode){
+
+        return String.format(Locale.UK,
+                             "%s %d %d %s %d %d %d",
+                             name, statusID, orgID, manifesto, fleetID, squadID, mode);
+>>>>>>> origin/API_manipulation_methods
     }
 
     private static void sendGet(String URL) throws Exception {
@@ -235,6 +244,7 @@ class APIaccess {
     static JSONObject deleteSquad(int squadID){
         /***
          * Deletes the specified squad
+<<<<<<< HEAD
          */
         try {
             String URL = String.format(Locale.UK, UserData.API_ROOT + "squads/%d", squadID);
@@ -314,6 +324,11 @@ class APIaccess {
          */
         try {
             String URL = String.format(Locale.UK, UserData.API_ROOT + "users/%d", userID);
+=======
+         */
+        try {
+            String URL = String.format(Locale.UK, UserData.API_ROOT + "squads/%d", squadID);
+>>>>>>> origin/API_manipulation_methods
 
             String newFleet = sendPost(URL, "_method=delete");
 
@@ -326,4 +341,10 @@ class APIaccess {
 
     }
 
+<<<<<<< HEAD
+=======
+    //User Management TODO when juda does the docs
+
+
+>>>>>>> origin/API_manipulation_methods
 }
