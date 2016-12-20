@@ -46,7 +46,7 @@ class APIaccess {
         con.setRequestProperty("User-Agent", "UOLTT App/v3");
 
         int responseCode = con.getResponseCode();
-        System.out.println("\nSending 'GET' request to URL : " + url);
+        System.out.println("\nSending 'GET' request to URL : " + URL);
         System.out.println("Response Code : " + responseCode);
 
         BufferedReader in = new BufferedReader(
@@ -87,8 +87,8 @@ class APIaccess {
         wr.close();
 
         int responseCode = con.getResponseCode();
-        System.out.println("\nSending 'POST' request to URL : " + url);
-        System.out.println("Post parameters : " + urlParameters);
+        System.out.println("\nSending 'POST' request to URL : " + URL);
+        System.out.println("Post parameters : " + params);
         System.out.println("Response Code : " + responseCode);
 
         BufferedReader in = new BufferedReader(
