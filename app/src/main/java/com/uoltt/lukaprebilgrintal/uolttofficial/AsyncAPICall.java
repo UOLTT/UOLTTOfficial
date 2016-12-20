@@ -13,7 +13,6 @@ import org.json.JSONObject;
  *  Async task that executes a HTTP method on the API
  *
  *  String[] is of form [name, status_id, org_id, manifesto,
-<<<<<<< HEAD
  *                       fleet_id, squad_id, email, pwd, user_id,
  *                       mode]
  *
@@ -27,49 +26,40 @@ public class AsyncAPICall extends AsyncTask <String[], Void, JSONObject> {
         int fleetID = Integer.parseInt(data[4]);
         int squadID = Integer.parseInt(data[5]);
         int userID  = Integer.parseInt(data[8]);
-=======
- *                       fleet_id, squad_id,
- *                       ///stuff///,
- *                       mode]
- *
- */
-public class AsyncAPICall extends AsyncTask <String, Void, JSONObject> {
-    @Override
-    protected JSONObject doInBackground(String... params) {
-        String[] data = params[0].split(" ");
-
-        int fleetID = Integer.parseInt(data[4]);
-        int squadID = Integer.parseInt(data[5]);
->>>>>>> origin/API_manipulation_methods
 
         int mode = Integer.parseInt(data[data.length - 1]);
 
         JSONObject returnJSON = new JSONObject();
-        switch(mode){
+        switch(mode) {
             case 0:
-                returnJSON = APIaccess.createNewFleet(data); break;
+                returnJSON = APIaccess.createNewFleet(data);
+                break;
             case 1:
-                returnJSON = APIaccess.editFleet(data); break;
+                returnJSON = APIaccess.editFleet(data);
+                break;
             case 2:
-                returnJSON = APIaccess.deleteFleet(fleetID); break;
+                returnJSON = APIaccess.deleteFleet(fleetID);
+                break;
             case 3:
-                returnJSON = APIaccess.createNewSquad(data); break;
+                returnJSON = APIaccess.createNewSquad(data);
+                break;
             case 4:
-                returnJSON = APIaccess.editSquad(data); break;
+                returnJSON = APIaccess.editSquad(data);
+                break;
             case 5:
-                returnJSON = APIaccess.deleteSquad(squadID); break;
-<<<<<<< HEAD
+                returnJSON = APIaccess.deleteSquad(squadID);
+                break;
             case 6:
-                returnJSON = APIaccess.createNewUser(data); break;
+                returnJSON = APIaccess.createNewUser(data);
+                break;
             case 7:
-                returnJSON = APIaccess.editUser(data); break;
+                returnJSON = APIaccess.editUser(data);
+                break;
             case 8:
-                returnJSON = APIaccess.deleteUser(userID); break;
-=======
->>>>>>> origin/API_manipulation_methods
-        }
+                returnJSON = APIaccess.deleteUser(userID);
+                break;
+            }
 
         return returnJSON;
-    }
-
+        }
 }

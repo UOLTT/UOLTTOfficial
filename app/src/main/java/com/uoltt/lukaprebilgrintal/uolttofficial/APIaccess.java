@@ -15,28 +15,20 @@ import java.util.Locale;
 
 class APIaccess {
 
-<<<<<<< HEAD
+
     static String[] buildString(String name, int statusID, int orgID, String manifesto, int fleetID,
-                              int squadID, String email, String pwd, int userID, int mode){
+                              int squadID, String email, String pwd, int userID, int mode) {
 
         /***
          *  Builds a String[] to use as argument for the API methods.
          *  If its String argument is an empty string, it doesnt need to be sent,
          *  and if its int argument is negative, it doesnt need to be sent.
          */
-        String toBeSplit =   String.format(Locale.UK,
-                             "%s %d %d %s %d %d %s %s %d %d",
-                             name, statusID, orgID, manifesto, fleetID, squadID, email, pwd, userID, mode);
+        String toBeSplit = String.format(Locale.UK,
+                "%s %d %d %s %d %d %s %s %d %d",
+                name, statusID, orgID, manifesto, fleetID, squadID, email, pwd, userID, mode);
 
         return toBeSplit.split(" ");
-=======
-    static String buildString(String name, int statusID, int orgID, String manifesto, int fleetID,
-                              int squadID, int mode){
-
-        return String.format(Locale.UK,
-                             "%s %d %d %s %d %d %d",
-                             name, statusID, orgID, manifesto, fleetID, squadID, mode);
->>>>>>> origin/API_manipulation_methods
     }
 
     private static void sendGet(String URL) throws Exception {
@@ -44,9 +36,7 @@ class APIaccess {
          * Sends GET request to the URL in the argument.
          */
 
-        String url = URL;
-
-        URL obj = new URL(url);
+        URL obj = new URL(URL);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
         // optional default is GET
@@ -62,7 +52,7 @@ class APIaccess {
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(con.getInputStream()));
         String inputLine;
-        StringBuffer response = new StringBuffer();
+        StringBuilder response = new StringBuilder();
 
         while ((inputLine = in.readLine()) != null) {
             response.append(inputLine);
@@ -79,8 +69,8 @@ class APIaccess {
          * Sends a POST request to the URL in the argument, with parameters in the second argument,
          * will sooner or later create a method that builds the params string...
          */
-        String url = URL;
-        URL obj = new URL(url);
+
+        URL obj = new URL(URL);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
         //add request header
@@ -88,12 +78,11 @@ class APIaccess {
         con.setRequestProperty("User-Agent", "UOLTT App/v3");
         con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 
-        String urlParameters = params;
 
         // Send post request
         con.setDoOutput(true);
         DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-        wr.writeBytes(urlParameters);
+        wr.writeBytes(params);
         wr.flush();
         wr.close();
 
@@ -105,7 +94,7 @@ class APIaccess {
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(con.getInputStream()));
         String inputLine;
-        StringBuffer response = new StringBuffer();
+        StringBuilder response = new StringBuilder();
 
         while ((inputLine = in.readLine()) != null) {
             response.append(inputLine);
@@ -324,11 +313,7 @@ class APIaccess {
          */
         try {
             String URL = String.format(Locale.UK, UserData.API_ROOT + "users/%d", userID);
-=======
-         */
-        try {
-            String URL = String.format(Locale.UK, UserData.API_ROOT + "squads/%d", squadID);
->>>>>>> origin/API_manipulation_methods
+
 
             String newFleet = sendPost(URL, "_method=delete");
 
@@ -341,10 +326,4 @@ class APIaccess {
 
     }
 
-<<<<<<< HEAD
-=======
-    //User Management TODO when juda does the docs
-
-
->>>>>>> origin/API_manipulation_methods
 }
