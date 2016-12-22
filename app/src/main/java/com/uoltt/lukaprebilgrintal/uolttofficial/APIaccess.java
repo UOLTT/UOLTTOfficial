@@ -105,7 +105,7 @@ class APIaccess {
 
     }
 
-
+    // TODO make sure edit methods can post any number of params
 
     // Fleet Management
     static JSONObject createNewFleet(String[] data){
@@ -233,7 +233,6 @@ class APIaccess {
     static JSONObject deleteSquad(int squadID){
         /***
          * Deletes the specified squad
-<<<<<<< HEAD
          */
         try {
             String URL = String.format(Locale.UK, UserData.API_ROOT + "squads/%d", squadID);
@@ -249,7 +248,7 @@ class APIaccess {
 
     }
 
-    //User Management TODO when juda does the docs
+    //User Management
 
     static JSONObject createNewUser(String[] data){
         /***

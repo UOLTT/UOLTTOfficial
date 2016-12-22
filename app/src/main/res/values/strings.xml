@@ -11,6 +11,7 @@
     <string name="logout">Logout</string>
     <string name="settings">Settings</string>
     <string name="credits">Credits</string>
+    <string name="management">Database Management</string>
 
     <!-- Settings strings -->
     <string name="settings_plch">Settings will arrive Soon™</string>
@@ -29,6 +30,8 @@
         <item name="user">User</item>
         <item name="squad">Squad</item>
     </string-array>
+
+    <string name="send_data">Upload Data</string>
 
 
     <!-- Credits Strings -->

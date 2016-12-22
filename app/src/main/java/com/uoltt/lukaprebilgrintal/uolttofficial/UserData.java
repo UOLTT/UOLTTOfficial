@@ -26,7 +26,7 @@ public class UserData {
 
     //CONSTANTS
     static final int POLLING_RATE = 5000;
-    static final String API_ROOT  = "api.uoltt.org/api/v4/";
+    static final String API_ROOT  = "https://api.uoltt.org/api/v4/";
 
 
 }

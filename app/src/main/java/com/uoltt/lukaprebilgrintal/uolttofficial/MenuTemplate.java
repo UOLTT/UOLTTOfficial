@@ -46,6 +46,9 @@ public class MenuTemplate extends AppCompatActivity {
             case R.id.canvas:
                 openCanvasActivity();
                 return true;
+            case R.id.management:
+                openManagementActivity();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -76,5 +79,11 @@ public class MenuTemplate extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+    }
+
+    public void openManagementActivity(){
+        Intent intent = new Intent(this, ManagementScreen.class);
+        startActivity(intent);
+        finish();
     }
 }
