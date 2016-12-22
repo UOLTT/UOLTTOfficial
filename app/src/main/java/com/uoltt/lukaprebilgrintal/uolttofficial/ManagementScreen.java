@@ -27,11 +27,47 @@ public class ManagementScreen extends MenuTemplate {
         String manifesto = maniObj.getText().toString();
         String email = mailObj.getText().toString();
         String pass = passObj.getText().toString();
-        int user_id = Integer.parseInt(uidObj.getText().toString());
-        int squadron_id = Integer.parseInt(sidObj.getText().toString());
-        int fleet_id = Integer.parseInt(fidObj.getText().toString());
-        int org_id = Integer.parseInt(oidObj.getText().toString());
-        int status_id = Integer.parseInt(stidObj.getText().toString());
+
+        int user_id = -1;
+        int squadron_id = -1;
+        int fleet_id = -1;
+        int org_id = -1;
+        int status_id = -1;
+
+
+        try{
+            user_id = Integer.parseInt(uidObj.getText().toString());
+        } catch (Exception e){
+            System.err.println(e.getMessage());
+        }
+
+        try{
+            squadron_id = Integer.parseInt(sidObj.getText().toString());
+        } catch (Exception e){
+            System.err.println(e.getMessage());
+        }
+
+        try{
+            fleet_id = Integer.parseInt(fidObj.getText().toString());
+        } catch (Exception e){
+            System.err.println(e.getMessage());
+        }
+
+        try{
+            org_id = Integer.parseInt(oidObj.getText().toString());
+        } catch (Exception e){
+            System.err.println(e.getMessage());
+        }
+
+        try{
+            status_id = Integer.parseInt(stidObj.getText().toString());
+        } catch (Exception e){
+            System.err.println(e.getMessage());
+        }
+
+
+
+
 
         Spinner spinner = (Spinner)findViewById(R.id.select_method_type);
         String type = spinner.getSelectedItem().toString();
