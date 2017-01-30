@@ -78,7 +78,7 @@ class APIaccess {
         con.setRequestProperty("User-Agent", "UOLTT App/v3");
         con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 
-
+        params = params + String.format("&token=%s", "wqhlpg"); //FIXme when we have more users this pulls their token
         // Send post request
         con.setDoOutput(true);
         DataOutputStream wr = new DataOutputStream(con.getOutputStream());

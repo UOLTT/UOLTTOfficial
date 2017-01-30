@@ -17,7 +17,7 @@ public class LoginActivity extends AppCompatActivity {
         //start background service
         Intent mServiceIntent = new Intent(this, BackgroundOps.class);
         this.startService(mServiceIntent);
-
+        //take it forward
         Intent intent = new Intent(LoginActivity.this, ImageCanvas.class);
         startActivity(intent);
     }
@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
                 SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.shared_preferences_file), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString("Username", UserData.username);
-                editor.putString("Squadron", UserData.squadronName);
+                editor.putString("Squadron", UserData.squadName);
                 editor.putInt("SquadronID",  UserData.squadronID);
                 editor.putString("Token",    UserData.token);
                 editor.putBoolean("LoggedIn", true);
@@ -63,8 +63,8 @@ public class LoginActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
 
+        //Check if user is logged in and take him forward
         SharedPreferences prefs = this.getSharedPreferences(getString(R.string.shared_preferences_file), Context.MODE_PRIVATE);
-
         if (prefs.getBoolean("LoggedIn", /*defaults if not found to*/false)){
             UserData.username = prefs.getString("Username", "USRNAMEError");
             UserData.squadronName = prefs.getString("Squadron", "SQDRNError");

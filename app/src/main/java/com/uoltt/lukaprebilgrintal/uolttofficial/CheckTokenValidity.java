@@ -1,6 +1,8 @@
 package com.uoltt.lukaprebilgrintal.uolttofficial;
 
 import android.os.AsyncTask;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 import java.net.URL;
 import java.util.Scanner;
@@ -12,32 +14,40 @@ public class CheckTokenValidity extends AsyncTask <String, Void, Boolean> {
 
     protected Boolean doInBackground(String... params){
         String token = params[0];
-        String userlink = "http://developers.uoltt.org/api/v3/register/" + token;
+        String userlink = "http://api.uoltt.org/api/v4/register/" + token;
         try{
 
             String jsonstring = new Scanner(new URL(userlink).openStream()).useDelimiter("\\A").next();
             JSONObject json = new JSONObject(jsonstring);
 
-            if (json.has("error")){
+            if (json.has("error")){ //if the token is invalid, will return error object
                 UserData.tokenValidity = false;
                 return false;
             } else {
                 UserData.username = json.getString("username");
-                if (json.get("squad") != null) {
-                    JSONObject squad = json.getJSONObject("squad");
-                    UserData.squadronName = squad.getString("name");
-                    UserData.squadronID   = squad.getInt("id");
-                } else {
-                    UserData.squadronName = null;
-                    UserData.squadronID = -1;
-                    System.err.println("SQID is wrong, squad was null");
+
+                if(json.get("organization") != null){
+                    JSONObject org = json.getJSONObject("organization");
+                    UserData.fillOrgData(org);
                 }
+                if(json.get("fleet") != null){
+                    JSONObject fleet = json.getJSONObject("fleet");
+                    UserData.fillFleetData(fleet);
+                }
+                if(json.get("squad") != null){
+                    JSONObject squad = json.getJSONObject("squad");
+                    UserData.fillSquadData(squad);
+                }
+
                 UserData.token = token;
                 UserData.tokenValidity = true;
                 return true;
             }
         } catch (Exception e){
             System.err.println(e.getMessage());
+            if (e instanceof JSONException){
+                System.err.println("Org json invalid");
+            }
             UserData.tokenValidity = false;
             return false;
         }

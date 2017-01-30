@@ -17,10 +17,10 @@ import java.util.logging.LogRecord;
 
 
 /**
- * An {@link IntentService} subclass for handling asynchronous task requests in
- * a service on a separate handler thread.
- * <p>
- * TODO: Customize class - update intent actions and extra parameters.
+ * A background service for updating formation info in real time,
+ * while not bogging down the UI thread.
+ *
+ * TODO Update it for v4, when juda gives info on formation data in the API
  */
 public class BackgroundOps extends IntentService {
 
@@ -52,12 +52,12 @@ public class BackgroundOps extends IntentService {
             UserData.bounds[1] = formation.getInt("maximum_members");
 
         } catch (JSONException e) {
-            System.err.println("There was an exception in the bckops");
+            System.err.println("There was a json exception in the bckops");
             System.err.println(e.getMessage());
             System.err.println(e.toString());
             UserData.jsonErr = true;
         } catch (MalformedURLException e) {
-            System.err.println("There was an exception in the bckops");
+            System.err.println("There was a url exception in the bckops");
             System.err.println(e.getMessage());
             System.err.println(e.toString());
             UserData.linkErr = true;
