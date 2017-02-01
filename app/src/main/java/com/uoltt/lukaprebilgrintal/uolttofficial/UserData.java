@@ -16,7 +16,7 @@ public class UserData {
      * (Org, Fleet, Squad), or that the squad doesnt have a set formation.
      */
 
-    static String squadronName;
+    static String squadronName; //to be deprecated
     static String token;
     static boolean tokenValidity;
     static String username;
@@ -27,7 +27,7 @@ public class UserData {
     static int formationID;
     static String formationName;
     static String formDesc;
-    static int[]  bounds = {0, 0}; //min and max number of members
+    static int formMinMem;
 
     //Organisation data
     static int organisationID;

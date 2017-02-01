@@ -20,7 +20,6 @@ import java.util.logging.LogRecord;
  * A background service for updating formation info in real time,
  * while not bogging down the UI thread.
  *
- * TODO Update it for v4, when juda gives info on formation data in the API
  */
 public class BackgroundOps extends IntentService {
 
@@ -32,24 +31,22 @@ public class BackgroundOps extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         try{
-            String jsonstring = new Scanner(
-                    new URL(String.format(
-                            Locale.UK,
-                            "http://developers.uoltt.org/api/v3/squads/%d", UserData.squadronID)
-                    ).openStream(), "UTF-8").useDelimiter("\\A").next();
+
+            String URL = UserData.API_ROOT + "formations/%d";
+            String jsonstring = new Scanner(new URL(String.format(Locale.UK, URL, UserData.squadFormationID))
+                                .openStream(), "UTF-8").useDelimiter("\\A").next();
 
             JSONObject json = new JSONObject(jsonstring);
 
-            UserData.formationID = json.getInt("formation_id");
 
-            JSONObject formation = json.getJSONObject("formation");
+            UserData.formationID = json.getInt("id");
 
-            UserData.formationName = formation.getString("name");
+            UserData.formationName = json.getString("name");
 
-            UserData.formDesc = formation.getString("description");
+            UserData.formDesc = json.getString("description");
 
-            UserData.bounds[0] = formation.getInt("minimum_members");
-            UserData.bounds[1] = formation.getInt("maximum_members");
+            UserData.formMinMem = json.getInt("minimum_users");
+
 
         } catch (JSONException e) {
             System.err.println("There was a json exception in the bckops");
