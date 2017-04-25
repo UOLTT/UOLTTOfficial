@@ -50,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
                 snackbar.show();
             }
         } catch (Exception e){
+            System.err.println("error in loginactivity");
             System.err.println(e.getMessage());
         }
 

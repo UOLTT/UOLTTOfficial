@@ -36,7 +36,7 @@ public class UserData {
     static int adminUserID;
     static int orgStatusID;
     static String orgManifesto;
-    static String[] orgDates; //date created and last edited
+    static String[] orgDates = new String[2]; //date created and last edited
 
     //Fleet Data
     static int fleetID;
@@ -45,7 +45,7 @@ public class UserData {
     static int parentOrgID;
     static int fleetStatusID;
     static String fleetManifesto;
-    static String[] fleetDates; //date created and last edited
+    static String[] fleetDates = new String[2]; //date created and last edited
 
     //Squadron Data
     static int squadronID;
@@ -54,7 +54,7 @@ public class UserData {
     static int squadStatusID;
     static int squadFormationID;
     static String squadName;
-    static String[] squadDates; //date created and last edited
+    static String[] squadDates = new String[2]; //date created and last edited
 
 
     //Errors

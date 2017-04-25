@@ -19,22 +19,24 @@ public class CheckTokenValidity extends AsyncTask <String, Void, Boolean> {
 
             String jsonstring = new Scanner(new URL(userlink).openStream()).useDelimiter("\\A").next();
             JSONObject json = new JSONObject(jsonstring);
-
+            System.err.println(jsonstring);
             if (json.has("error")){ //if the token is invalid, will return error object
                 UserData.tokenValidity = false;
+                System.err.println("JSON FOR TOKEN HAS ERROR");
                 return false;
             } else {
+                System.err.println("JSON GETS LOADED, LOOK ELSEWHERE");
                 UserData.username = json.getString("username");
 
-                if(json.get("organization") != null){
+                if(json.get("organization_id") != null && json.get("organization") != null){
                     JSONObject org = json.getJSONObject("organization");
                     UserData.fillOrgData(org);
                 }
-                if(json.get("fleet") != null){
+                if(json.get("fleet_id") != null && json.get("fleet") != null){
                     JSONObject fleet = json.getJSONObject("fleet");
                     UserData.fillFleetData(fleet);
                 }
-                if(json.get("squad") != null){
+                if(json.get("squad_id") != null && json.get("squad") != null){
                     JSONObject squad = json.getJSONObject("squad");
                     UserData.fillSquadData(squad);
                 }
