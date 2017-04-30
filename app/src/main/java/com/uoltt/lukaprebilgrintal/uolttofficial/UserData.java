@@ -19,6 +19,7 @@ public class UserData {
     static String squadronName; //to be deprecated
     static String token;
     static boolean tokenValidity;
+    static boolean userNotInSquad;
     static String username;
 
 

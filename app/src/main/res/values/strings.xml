@@ -38,4 +38,11 @@
     <string name="luka">App Code/Design: LukaP</string>
     <string name="juda">API/Web integration: judahnator</string>
     <string name="rucca">Organisation DB and math: rucdoc</string>
+
+    <!-- Errors -->
+    <string name="squad_error_title">User not in squad error!</string>
+    <string name="squad_error_message">You must be in a squad for the app to display a formation.\n
+                                       Contact support on Discord for help.\n
+                                       You will need to logout for any changes to take effect.</string>
+    <string name="squad_error_logout">OK</string>
 </resources>

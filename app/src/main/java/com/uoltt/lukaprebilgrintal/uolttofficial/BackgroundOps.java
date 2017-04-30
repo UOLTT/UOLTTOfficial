@@ -63,6 +63,9 @@ public class BackgroundOps extends IntentService {
             for(StackTraceElement m : e.getStackTrace()){
                 System.err.println(m.toString());
             }
+            //TODO display error message
+            UserData.userNotInSquad = true;
+            System.err.println("USER NOT IN SQUAD BCKGOPS");
         }
     }
 }

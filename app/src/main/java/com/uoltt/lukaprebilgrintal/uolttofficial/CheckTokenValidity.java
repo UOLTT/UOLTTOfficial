@@ -25,7 +25,6 @@ public class CheckTokenValidity extends AsyncTask <String, Void, Boolean> {
                 System.err.println("JSON FOR TOKEN HAS ERROR");
                 return false;
             } else {
-                System.err.println("JSON GETS LOADED, LOOK ELSEWHERE");
                 UserData.username = json.getString("username");
 
                 if(!json.isNull("organization_id") && !json.isNull("organization")){
@@ -39,6 +38,10 @@ public class CheckTokenValidity extends AsyncTask <String, Void, Boolean> {
                 if(!json.isNull("squad_id") && !json.isNull("squad")){
                     JSONObject squad = json.getJSONObject("squad");
                     UserData.fillSquadData(squad);
+                }
+                if (json.isNull("organization_id") || json.isNull("fleet_id") || json.isNull("squad_id")){
+                    UserData.userNotInSquad = true;
+                    System.err.println("USER NOT IN SQUAD");
                 }
 
                 UserData.token = token;
