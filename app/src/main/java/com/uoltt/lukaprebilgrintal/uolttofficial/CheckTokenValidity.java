@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.net.URL;
+import java.util.Locale;
 import java.util.Scanner;
 
 /**
@@ -31,12 +32,14 @@ public class CheckTokenValidity extends AsyncTask <String, Void, Boolean> {
                     JSONObject org = json.getJSONObject("organization");
                     UserData.fillOrgData(org);
                 }
-                if(!json.isNull("fleet_id") && !json.isNull("fleet")){
-                    JSONObject fleet = json.getJSONObject("fleet");
+                if(!json.isNull("fleet_id")){
+                    String fleetJSON = new Scanner(new URL(String.format(Locale.UK, UserData.API_ROOT + "fleets/%d", json.getInt("fleet_id"))).openStream()).useDelimiter("\\A").next();
+                    JSONObject fleet = new JSONObject(fleetJSON);
                     UserData.fillFleetData(fleet);
                 }
-                if(!json.isNull("squad_id") && !json.isNull("squad")){
-                    JSONObject squad = json.getJSONObject("squad");
+                if(!json.isNull("squad_id")){
+                    String squadJSON = new Scanner(new URL(String.format(Locale.UK, UserData.API_ROOT + "squads/%d", json.getInt("squad_id"))).openStream()).useDelimiter("\\A").next();
+                    JSONObject squad = new JSONObject(squadJSON);
                     UserData.fillSquadData(squad);
                 }
                 if (json.isNull("organization_id") || json.isNull("fleet_id") || json.isNull("squad_id")){
