@@ -11,12 +11,38 @@
     <string name="logout">Logout</string>
     <string name="settings">Settings</string>
     <string name="credits">Credits</string>
+    <string name="management">Database Management</string>
 
     <!-- Settings strings -->
     <string name="settings_plch">Settings will arrive Soon™</string>
+
+    <!-- Management strings -->
+    <string name="CED">Select method type</string>
+    <string-array name="method_types">
+        <item name="create">Create</item>
+        <item name="edit">Edit</item>
+        <item name="delete">Delete</item>
+    </string-array>
+
+    <string name="FSU">Select group</string>
+    <string-array name="method_group">
+        <item name="fleet">Fleet</item>
+        <item name="user">User</item>
+        <item name="squad">Squad</item>
+    </string-array>
+
+    <string name="send_data">Upload Data</string>
+
 
     <!-- Credits Strings -->
     <string name="luka">App Code/Design: LukaP</string>
     <string name="juda">API/Web integration: judahnator</string>
     <string name="rucca">Organisation DB and math: rucdoc</string>
+
+    <!-- Errors -->
+    <string name="squad_error_title">User not in squad error!</string>
+    <string name="squad_error_message">You must be in a squad for the app to display a formation.\n
+                                       Contact support on Discord for help.\n
+                                       You will need to logout for any changes to take effect.</string>
+    <string name="squad_error_logout">OK</string>
 </resources>

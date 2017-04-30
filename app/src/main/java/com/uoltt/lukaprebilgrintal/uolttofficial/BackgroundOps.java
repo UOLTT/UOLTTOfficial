@@ -6,6 +6,7 @@ import android.content.Intent;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
@@ -16,10 +17,9 @@ import java.util.logging.LogRecord;
 
 
 /**
- * An {@link IntentService} subclass for handling asynchronous task requests in
- * a service on a separate handler thread.
- * <p>
- * TODO: Customize class - update intent actions and extra parameters.
+ * A background service for updating formation info in real time,
+ * while not bogging down the UI thread.
+ *
  */
 public class BackgroundOps extends IntentService {
 
@@ -31,34 +31,41 @@ public class BackgroundOps extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         try{
-            String jsonstring = new Scanner(
-                    new URL(String.format(
-                            Locale.UK,
-                            "http://developers.uoltt.org/api/v3/squads/%d", UserData.squadronID)
-                    ).openStream(), "UTF-8").useDelimiter("\\A").next();
+
+            String URL = UserData.API_ROOT + "formations/%d";
+            String jsonstring = new Scanner(new URL(String.format(Locale.UK, URL, UserData.squadFormationID))
+                                .openStream(), "UTF-8").useDelimiter("\\A").next();
 
             JSONObject json = new JSONObject(jsonstring);
 
-            UserData.formationID = json.getInt("formation_id");
 
-            JSONObject formation = json.getJSONObject("formation");
+            UserData.formationID = json.getInt("id");
 
-            UserData.formationName = formation.getString("name");
+            UserData.formationName = json.getString("name");
 
-            UserData.formDesc = formation.getString("description");
+            UserData.formDesc = json.getString("description");
 
-            UserData.bounds[0] = formation.getInt("minimum_members");
-            UserData.bounds[1] = formation.getInt("maximum_members");
+            UserData.formMinMem = json.getInt("minimum_users");
 
-        } catch (Exception e) {
-            System.err.println("There was an exception in the bckops");
+
+        } catch (JSONException e) {
+            System.err.println("There was a json exception in the bckops");
             System.err.println(e.getMessage());
             System.err.println(e.toString());
-            if (e instanceof JSONException){
-                UserData.jsonErr = true;
-            } else if (e instanceof MalformedURLException){
-                UserData.linkErr = true;
+            UserData.jsonErr = true;
+        } catch (MalformedURLException e) {
+            System.err.println("There was a url exception in the bckops");
+            System.err.println(e.getMessage());
+            System.err.println(e.toString());
+            UserData.linkErr = true;
+        } catch (IOException e){
+            System.err.println("IOException");
+            for(StackTraceElement m : e.getStackTrace()){
+                System.err.println(m.toString());
             }
+            //TODO display error message
+            UserData.userNotInSquad = true;
+            System.err.println("USER NOT IN SQUAD BCKGOPS");
         }
     }
 }

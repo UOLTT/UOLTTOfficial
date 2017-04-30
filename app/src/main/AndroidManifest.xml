@@ -19,7 +19,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
         <activity android:name=".ImageCanvas">
             <action android:name="android.intent.action.VIEW"/>
         </activity>
@@ -31,13 +30,12 @@
 
         <activity android:name=".Settings">
         </activity>
-
         <activity android:name=".Credits">
         </activity>
-
         <activity android:name=".MenuTemplate">
         </activity>
-
+        <activity android:name=".ManagementScreen">
+        </activity>
     </application>
 
 </manifest>
