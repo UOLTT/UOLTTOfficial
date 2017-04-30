@@ -32,20 +32,22 @@ public class BackgroundOps extends IntentService {
     protected void onHandleIntent(Intent intent) {
         try{
 
-            String URL = UserData.API_ROOT + "formations/%d";
-            String jsonstring = new Scanner(new URL(String.format(Locale.UK, URL, UserData.squadFormationID))
+            String URL = UserData.API_ROOT + "squads/%d";
+            String jsonstring = new Scanner(new URL(String.format(Locale.UK, URL, UserData.squadronID))
                                 .openStream(), "UTF-8").useDelimiter("\\A").next();
 
             JSONObject json = new JSONObject(jsonstring);
 
 
-            UserData.formationID = json.getInt("id");
+            UserData.formationID = json.getInt("formation_id");
 
-            UserData.formationName = json.getString("name");
+            JSONObject formationData = json.getJSONObject("formation");
 
-            UserData.formDesc = json.getString("description");
+            UserData.formationName = formationData.getString("name");
 
-            UserData.formMinMem = json.getInt("minimum_users");
+            UserData.formDesc = formationData.getString("description");
+
+            UserData.formMinMem = formationData.getInt("minimum_users");
 
 
         } catch (JSONException e) {
@@ -63,8 +65,6 @@ public class BackgroundOps extends IntentService {
             for(StackTraceElement m : e.getStackTrace()){
                 System.err.println(m.toString());
             }
-            //TODO display error message
-            UserData.userNotInSquad = true;
             System.err.println("USER NOT IN SQUAD BCKGOPS");
         }
     }
