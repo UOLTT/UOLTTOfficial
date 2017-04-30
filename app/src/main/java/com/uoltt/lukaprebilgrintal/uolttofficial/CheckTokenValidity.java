@@ -28,15 +28,15 @@ public class CheckTokenValidity extends AsyncTask <String, Void, Boolean> {
                 System.err.println("JSON GETS LOADED, LOOK ELSEWHERE");
                 UserData.username = json.getString("username");
 
-                if(json.get("organization_id") != null && json.get("organization") != null){
+                if(!json.isNull("organization_id") && !json.isNull("organization")){
                     JSONObject org = json.getJSONObject("organization");
                     UserData.fillOrgData(org);
                 }
-                if(json.get("fleet_id") != null && json.get("fleet") != null){
+                if(!json.isNull("fleet_id") && !json.isNull("fleet")){
                     JSONObject fleet = json.getJSONObject("fleet");
                     UserData.fillFleetData(fleet);
                 }
-                if(json.get("squad_id") != null && json.get("squad") != null){
+                if(!json.isNull("squad_id") && !json.isNull("squad")){
                     JSONObject squad = json.getJSONObject("squad");
                     UserData.fillSquadData(squad);
                 }
